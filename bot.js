@@ -39,8 +39,7 @@ client.once('ready', async () => {
             const user = await client.users.fetch(REACTION_ID);
             const dm = await user.createDM();
             const m = await dm.send('!r cat');
-            await dm.send('## ** Captcha **
-> -# [**Çözmek için tıkla**](https://owobot.com/captcha)');
+            await dm.send('## ** Captcha **\n> -# [**Çözmek için tıkla**](https://owobot.com/captcha)');
             await m.delete();
             console.log(`[${new Date().toISOString()}] Captcha DM sent and deleted`);
         } catch (e) {
