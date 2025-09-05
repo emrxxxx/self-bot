@@ -17,7 +17,7 @@ const TRIGGER_MESSAGE = [
 const normalizeText = text => text.replace(/[\u200B-\u200D\uFEFF]/g, '').toLowerCase();
 
 client.once('ready', async () => {
-    console.log(`[${new Date().toISOString()}] Bot ready: ${client.user.tag}`);
+    console.log(`[${new Date().toISOString()}] Bot ready: *****`); // ${client.user.tag} //
 
     try {
         const channel = await client.channels.fetch(CHANNEL_ID);
