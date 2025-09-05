@@ -1,8 +1,8 @@
-name: Owo Selfbot 5m Cron
+name: Owo Selfbot 6h Cron
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - run: npm install discord.js-selfbot-v13 dotenv
       - run: |
           node bot.js &
-          sleep 60
+          sleep 21600
           pkill -f "node bot.js" || true
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
