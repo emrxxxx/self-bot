@@ -39,7 +39,7 @@ function startCurseLoop() {
         if (botPaused || captchaDetected) return;
         try {
             const ch = await client.channels.fetch(CHANNEL_ID);
-            await ch.send(`owo curse ${SOCIAL_USER_ID}`);
+            await ch.send(`Owo curse ${SOCIAL_USER_ID}`);
             lastCurseTime = Date.now();
             console.log(`[${new Date().toISOString()}] Owo curse gönderildi.`);
             clearInterval(curseInterval);
