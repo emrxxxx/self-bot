@@ -15,9 +15,7 @@ const formatDateTime = (date) => {
     timeZone: 'Europe/Istanbul'
   };
 
-  const formattedDate = date.toLocaleString('tr-TR', options);
-  
-  return formattedDate.replace('.', '-').replace('.', '-').replace(' ', ' - ');
+  return date.toLocaleString('tr-TR', options);
 };
 
 const OWO_ID = '408785106942164992';
