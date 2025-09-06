@@ -53,7 +53,7 @@ function startCurseLoop() {
         const timeSinceLast = Date.now() - lastCurseTime;
         if (lastCurseTime === 0 || timeSinceLast >= nextIntervalMS) {
             client.channels.fetch(CHANNEL_ID)
-                .then(ch => ch.send(`owo curse ${SOCIAL_USER_ID}`))
+                .then(ch => ch.send(`Owo curse ${SOCIAL_USER_ID}`))
                 .then(() => {
                     lastCurseTime = Date.now();
                     console.log(`[${new Date().toISOString()}] Kaldığı yerden curse gönderildi.`);
