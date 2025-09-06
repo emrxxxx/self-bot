@@ -4,6 +4,16 @@ const client = new Client({
   checkUpdate: false,
 });
 
+const formatDateTime = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+  return `${day}-${month}-${year} - ${hours}:${minutes}`;
+};
+
 const OWO_ID = '408785106942164992';
 const REACTION_ID = '519287796549156864';
 
@@ -40,7 +50,7 @@ function startCurseLoop(sendImmediately = false) {
       const ch = await client.channels.fetch(CHANNEL_ID);
       await ch.send(`Owo curse ${SOCIAL_USER_ID}`);
       state.lastCurseTime = Date.now();
-      console.log(`[${new Date().toISOString()}] Owo curse gönderildi.`);
+      console.log(`[${formatDateTime(new Date())}] Owo curse gönderildi.`);
       
       const interval = getRandomInterval();
       state.nextCurseScheduledTime = Date.now() + interval;
@@ -67,7 +77,7 @@ function startCurseLoop(sendImmediately = false) {
 }
 
 client.once('ready', async () => {
-  console.log(`[${new Date().toISOString()}] Bot hazır.`);
+  console.log(`[${formatDateTime(new Date())}] Bot hazır.`);
 
   if (!state.botPaused && !state.captchaDetected) {
     startCurseLoop(true);
@@ -82,7 +92,7 @@ client.on('messageCreate', async msg => {
 
   if (hasTrigger) {
     state.captchaDetected = true;
-    console.log(`[${new Date().toISOString()}] Captcha algılandı, mesajlar durduruldu.`);
+    console.log(`[${formatDateTime(new Date())}] Captcha algılandı, mesajlar durduruldu.`);
 
     if (!state.botPaused) {
       try {
@@ -91,7 +101,7 @@ client.on('messageCreate', async msg => {
         const m = await dm.send('!r cat');
         await dm.send('## ** Captcha **\n> -# [**Çözmek için tıkla**](https://owobot.com/captcha)');
         await m.delete();
-        console.log(`[${new Date().toISOString()}] Captcha DM gönderildi.`);
+        console.log(`[${formatDateTime(new Date())}] Captcha DM gönderildi.`);
       } catch (err) {
         console.error('Captcha DM hatası:', err.message);
       }
@@ -115,7 +125,7 @@ client.on('messageCreate', async msg => {
       state.curseTimeoutId = null;
     }
     await msg.react('⏸️');
-    console.log(`[${new Date().toISOString()}] Bot duraklatıldı.`);
+    console.log(`[${formatDateTime(new Date())}] Bot duraklatıldı.`);
   } else if (command === '!devam') {
     if (!state.botPaused && !state.captchaDetected) {
       await msg.channel.send('Bot zaten çalışıyor.');
@@ -124,7 +134,7 @@ client.on('messageCreate', async msg => {
     state.botPaused = false;
     state.captchaDetected = false;
     await msg.react('▶️');
-    console.log(`[${new Date().toISOString()}] Bot devam ediyor.`);
+    console.log(`[${formatDateTime(new Date())}] Bot devam ediyor.`);
 
     startCurseLoop();
   }
