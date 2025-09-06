@@ -49,21 +49,6 @@ function startCurseLoop() {
         }
     }, setNextInterval());
 
-    if (!botPaused && !captchaDetected) {
-        const timeSinceLast = Date.now() - lastCurseTime;
-        if (lastCurseTime === 0 || timeSinceLast >= nextIntervalMS) {
-            client.channels.fetch(CHANNEL_ID)
-                .then(ch => ch.send(`Owo curse ${SOCIAL_USER_ID}`))
-                .then(() => {
-                    lastCurseTime = Date.now();
-                    console.log(`[${new Date().toISOString()}] Kaldığı yerden curse gönderildi.`);
-                    clearInterval(curseInterval);
-                    startCurseLoop();
-                })
-                .catch(e => console.error('Kaldığı yerden curse hatası:', e));
-        }
-    }
-    
     console.log(`[${new Date().toISOString()}] Curse döngüsü başlatıldı, bir sonraki mesaj ~${Math.round(nextIntervalMS/1000)} saniye sonra.`);
 }
 
