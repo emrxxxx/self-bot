@@ -13,7 +13,7 @@ const { DISCORD_TOKEN, CHANNEL_ID, SOCIAL_USER_ID } = process.env;
 
 // ---------- BAYRAKLAR ----------
 let captchaDetected = false;   // captcha gelirse true
-let botPaused       = false;   // !duraklat / !devam ile kontrol
+let botPaused       = true;   // !duraklat / !devam ile kontrol
 let curseInterval   = null;    // setInterval referansı
 let lastCurseTime   = 0;      // son curse zamanı (ms)
 let nextIntervalMS  = 0;      // bir sonraki aralık (ms)
@@ -43,13 +43,12 @@ function startCurseLoop() {
             lastCurseTime = Date.now();
             console.log(`[${new Date().toISOString()}] Owo curse gönderildi.`);
             clearInterval(curseInterval);
-            startCurseLoop(); // Yeni rastgele süreyle döngüyü yeniden başlat
+            startCurseLoop();
         } catch (e) {
             console.error('Curse mesaj hatası:', e);
         }
     }, setNextInterval());
 
-    // Kaldığı yerden devam için kontrol
     if (!botPaused && !captchaDetected) {
         const timeSinceLast = Date.now() - lastCurseTime;
         if (lastCurseTime === 0 || timeSinceLast >= nextIntervalMS) {
@@ -59,7 +58,7 @@ function startCurseLoop() {
                     lastCurseTime = Date.now();
                     console.log(`[${new Date().toISOString()}] Kaldığı yerden curse gönderildi.`);
                     clearInterval(curseInterval);
-                    startCurseLoop(); // Yeni rastgele süreyle döngüyü yeniden başlat
+                    startCurseLoop();
                 })
                 .catch(e => console.error('Kaldığı yerden curse hatası:', e));
         }
