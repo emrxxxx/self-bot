@@ -67,7 +67,7 @@ function startCurseLoop(sendImmediately = false) {
 }
 
 client.once('ready', async () => {
-  console.log(`[${new Date().toISOString()}] Bot hazır: ${client.user.tag}`);
+  console.log(`[${new Date().toISOString()}] Bot hazır.`);
 
   if (!state.botPaused && !state.captchaDetected) {
     startCurseLoop(true);
